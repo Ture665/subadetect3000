@@ -7,47 +7,46 @@
 
   <nav>
     <a href="/dashboard">Dashboard</a>
-    <a href="/status">Status API</a>
+    <a href="/detection">Detection</a>
+    <a href="/downloads">Downloads</a>
+    <a href="/about">About</a>
     <a href="/login">Logout</a>
   </nav>
 </header>
 
-<main class="dashboard-grid">
-  <section class="card status-card">
-    <h2>Server Status</h2>
+<main class="welcome-layout">
+  <section class="card hero-card">
+    <h2>Welcome, {{ username }}</h2>
+    <p>
+      This is the central control dashboard for the Subaharan Detector 3000.
+      From here you can monitor face detection, access downloads, and view
+      project information.
+    </p>
 
-    <div class="status-row">
-      <span>Server</span>
-      <strong class="online">{{ server_status }}</strong>
-    </div>
-
-    <div class="status-row">
-      <span>Pi IP</span>
-      <strong>{{ pi_ip }}</strong>
-    </div>
-
-    <div class="status-row">
-      <span>Camera</span>
-      <strong>{{ camera_status }}</strong>
+    <div class="hero-actions">
+      <a class="button-link" href="/detection">Open Detection Center</a>
+      <a class="button-link secondary" href="/downloads">Download Files</a>
     </div>
   </section>
 
-  <section class="card feed-card">
-    <h2>Live Feed</h2>
-    <div class="fake-feed">CAMERA FEED COMING SOON</div>
-  </section>
+  <section class="quick-grid">
+    <div class="card">
+      <h2>Detection</h2>
+      <p>View camera status, live feed placeholder, and detection summaries.</p>
+      <a href="/detection">Go to Detection →</a>
+    </div>
 
-  <section class="card">
-    <h2>Detection Summary</h2>
-    <p>Detections today: <strong>0</strong></p>
-    <p>Last detection: <strong>None</strong></p>
-    <p>Connected apps: <strong>0</strong></p>
-  </section>
+    <div class="card">
+      <h2>Downloads</h2>
+      <p>Download the PC app, Raspberry Pi files, and setup guide.</p>
+      <a href="/downloads">Go to Downloads →</a>
+    </div>
 
-  <section class="card">
-    <h2>Quick Actions</h2>
-    <button>Refresh Status</button>
-    <button class="secondary">Download PC App</button>
+    <div class="card">
+      <h2>About</h2>
+      <p>Learn about the project, technologies, and system design.</p>
+      <a href="/about">Go to About →</a>
+    </div>
   </section>
 </main>
 {% endblock %}

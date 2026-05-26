@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block content %}
+<header class="topbar">
+  <div>
+    <h1>◈ DOWNLOADS</h1>
+    <p class="subtitle">Install files and setup resources</p>
+  </div>
+
+  <nav>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/detection">Detection</a>
+    <a href="/downloads">Downloads</a>
+    <a href="/about">About</a>
+    <a href="/login">Logout</a>
+  </nav>
+</header>
+
+<main class="dashboard-grid">
+  <section class="card">
+    <h2>PC App</h2>
+    <p>
+      Download the Windows control app for Auto Action and detection events.
+    </p>
+    <button>Download PC App</button>
+  </section>
+
+  <section class="card">
+    <h2>Raspberry Pi Files</h2>
+    <p>Download detector scripts, setup files, and requirements.</p>
+    <button>Download Pi Package</button>
+  </section>
+
+  <section class="card">
+    <h2>Setup Guide</h2>
+    <p>Instructions for installing dependencies and running the detector.</p>
+    <button class="secondary">Download Guide</button>
+  </section>
+
+  <section class="card">
+    <h2>Version Info</h2>
+    <p>Current version: <strong>0.1.0 development</strong></p>
+    <p>Status: <strong class="online">Active</strong></p>
+  </section>
+</main>
+{% endblock %}

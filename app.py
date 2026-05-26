@@ -62,6 +62,34 @@ def dashboard(request: Request):
         }
     )
 
+@app.get("/detection", response_class=HTMLResponse)
+def detection(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "detection.html",
+        {
+            "server_status": "ONLINE",
+            "pi_ip": "Not connected yet",
+            "camera_status": "Not added yet"
+        }
+    )
+
+
+@app.get("/downloads", response_class=HTMLResponse)
+def downloads(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "downloads.html",
+        {}
+    )
+
+@app.get("/about", response_class=HTMLResponse)
+def about(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "about.html",
+        {}
+    )
 
 @app.get("/status")
 def status():

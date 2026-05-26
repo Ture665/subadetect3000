@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block content %}
+<header class="topbar">
+  <div>
+    <h1>◈ ABOUT</h1>
+    <p class="subtitle">Project overview</p>
+  </div>
+
+  <nav>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/detection">Detection</a>
+    <a href="/downloads">Downloads</a>
+    <a href="/about">About</a>
+    <a href="/login">Logout</a>
+  </nav>
+</header>
+
+<main class="welcome-layout">
+  <section class="card about-landing">
+    <h1>◈ SUBAHARAN DETECTOR 3000</h1>
+    <p class="subtitle">The ultimate teacher-detection system</p>
+
+    <div class="target-showcase">
+      <h2>Do you want to detect this man?</h2>
+
+      <img src="/static/images/suba.jpg" alt="Suba target image" />
+
+      <p>
+        Then <strong>Subaharan Detector 3000</strong> is the perfect thing for
+        you.
+      </p>
+
+      <p class="terminal-line">
+        Detection target: <span>SUBA</span> · Status: <span>READY</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>What does it do?</h2>
+    <p>
+      Subaharan Detector 3000 is a Raspberry Pi-powered face recognition system.
+      When the camera recognizes Suba, it sends a detection event to the
+      connected PC app. The PC app can then perform a selected action, such as
+      Alt+Tab, Ctrl+Tab, showing the desktop, or opening a chosen application.
+    </p>
+  </section>
+
+  <section class="quick-grid">
+    <div class="card">
+      <h2>Raspberry Pi</h2>
+      <p>
+        Runs the camera, face recognition logic, socket event server, and the
+        webserver for the dashboard.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>PC App</h2>
+      <p>
+        Connects to the Raspberry Pi and reacts when Suba is detected using
+        configurable actions.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Website</h2>
+      <p>
+        Provides login, monitoring, downloads, project information, server
+        status, and future CRUD/database features.
+      </p>
+    </div>
+  </section>
+</main>
+{% endblock %}
