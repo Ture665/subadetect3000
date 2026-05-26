@@ -14,31 +14,70 @@
   </nav>
 </header>
 
-<main class="dashboard-grid">
-  <section class="card">
-    <h2>PC App</h2>
+<main class="downloads-layout">
+  <section class="card downloads-hero">
+    <h1>SUBAHARAN DETECTOR 3000</h1>
     <p>
-      Download the Windows control app for Auto Action and detection events.
+      Download the desktop control app and connect it to your Raspberry Pi
+      detector. More setup files and resources are available below.
     </p>
-    <button>Download PC App</button>
+
+    <a class="main-download-btn" href="#">
+      <span>Download</span>
+      <span class="download-icon">↓</span>
+    </a>
+
+    <p class="download-note">
+      Windows PC app · Raspberry Pi companion system · Development build
+    </p>
   </section>
 
-  <section class="card">
-    <h2>Raspberry Pi Files</h2>
-    <p>Download detector scripts, setup files, and requirements.</p>
-    <button>Download Pi Package</button>
+  <section class="download-card-grid">
+    <div class="card download-card">
+      <h2>PC App</h2>
+      <p>
+        The Windows control panel for connecting to the Raspberry Pi and
+        reacting to detection events.
+      </p>
+      <a class="button-link" href="#">Download PC App</a>
+    </div>
+
+    <div class="card download-card">
+      <h2>Raspberry Pi Files</h2>
+      <p>
+        Detector scripts, setup files, and requirements for running the camera
+        and face recognition system.
+      </p>
+      <a class="button-link secondary" href="#">Download Pi Package</a>
+    </div>
+
+    <div class="card download-card">
+      <h2>Setup Guide</h2>
+      <p>
+        Step-by-step instructions for installing dependencies, starting the
+        server, and connecting the PC app.
+      </p>
+      <a class="button-link secondary" href="#">Download Guide</a>
+    </div>
   </section>
 
-  <section class="card">
-    <h2>Setup Guide</h2>
-    <p>Instructions for installing dependencies and running the detector.</p>
-    <button class="secondary">Download Guide</button>
-  </section>
+  <section class="card version-panel">
+    <h2>Version Information</h2>
 
-  <section class="card">
-    <h2>Version Info</h2>
-    <p>Current version: <strong>0.1.0 development</strong></p>
-    <p>Status: <strong class="online">Active</strong></p>
+    <div class="status-row">
+      <span>Current version</span>
+      <strong>0.1.0 development</strong>
+    </div>
+
+    <div class="status-row">
+      <span>Platform</span>
+      <strong>Windows + Raspberry Pi</strong>
+    </div>
+
+    <div class="status-row">
+      <span>Status</span>
+      <strong class="online">Active</strong>
+    </div>
   </section>
 </main>
 {% endblock %}
