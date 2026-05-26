@@ -1,0 +1,169 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0d0d0d;
+  color: #e0e0e0;
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 28px;
+}
+
+h1,
+h2 {
+  color: #4cff4c;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  color: #888;
+  margin-top: -8px;
+}
+
+.card {
+  background: #060606;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 22px;
+  box-shadow: 0 0 20px rgba(76, 255, 76, 0.04);
+}
+
+.login-wrapper {
+  min-height: calc(100vh - 56px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 420px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  color: #aaa;
+  margin-top: 8px;
+}
+
+input {
+  background: #101010;
+  color: #e0e0e0;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 12px;
+  font-family: inherit;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4cff4c;
+}
+
+button {
+  margin-top: 14px;
+  background: #1a3a1a;
+  color: #4cff4c;
+  border: 1px solid #4cff4c;
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #245024;
+}
+
+button.secondary {
+  background: #1a1a2e;
+  color: #aaa;
+  border-color: #333;
+}
+
+.error-box {
+  background: #3a1a1a;
+  color: #ff5555;
+  border: 1px solid #ff5555;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 14px;
+}
+
+.hint {
+  color: #666;
+  font-size: 13px;
+  margin-top: 18px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #222;
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+}
+
+nav {
+  display: flex;
+  gap: 16px;
+}
+
+nav a {
+  color: #4cff4c;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: white;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 18px;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #1a1a1a;
+  padding: 12px 0;
+}
+
+.online {
+  color: #4cff4c;
+}
+
+.fake-feed {
+  height: 320px;
+  border: 1px dashed #333;
+  background: #020202;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 800px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

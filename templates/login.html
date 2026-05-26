@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block content %}
+<div class="login-wrapper">
+  <div class="card login-card">
+    <h1>◈ SUBAHARAN DETECTOR 3000</h1>
+    <p class="subtitle">Secure access required</p>
+
+    {% if error %}
+    <div class="error-box">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="/login">
+      <label>Username</label>
+      <input type="text" name="username" placeholder="admin" required />
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="admin" required />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p class="hint">Demo login: admin / admin</p>
+  </div>
+</div>
+{% endblock %}
