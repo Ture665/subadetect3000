@@ -14,42 +14,96 @@
   </nav>
 </header>
 
-<main class="dashboard-grid">
-  <section class="card status-card">
-    <h2>Server Status</h2>
-
-    <div class="status-row">
+<main class="detection-layout">
+  <section class="status-strip">
+    <div class="mini-card">
       <span>Server</span>
       <strong class="online">{{ server_status }}</strong>
     </div>
 
-    <div class="status-row">
+    <div class="mini-card">
+      <span>Camera</span>
+      <strong>{{ camera_status }}</strong>
+    </div>
+
+    <div class="mini-card">
       <span>Pi IP</span>
       <strong>{{ pi_ip }}</strong>
     </div>
 
-    <div class="status-row">
-      <span>Camera</span>
-      <strong>{{ camera_status }}</strong>
+    <div class="mini-card">
+      <span>Last Detection</span>
+      <strong>None</strong>
     </div>
   </section>
 
-  <section class="card feed-card">
-    <h2>Live Feed</h2>
-    <div class="fake-feed">CAMERA FEED COMING SOON</div>
+  <section class="detection-main-grid">
+    <div class="card live-panel">
+      <div class="section-heading">
+        <div>
+          <h2>Live Feed</h2>
+          <p class="subtitle">Camera stream will appear here</p>
+        </div>
+
+        <span class="live-badge">STANDBY</span>
+      </div>
+
+      <div class="camera-frame">
+        <div>
+          <div class="scan-line"></div>
+          <p>CAMERA FEED COMING SOON</p>
+        </div>
+      </div>
+    </div>
+
+    <aside class="side-panel">
+      <div class="card">
+        <h2>Detection Summary</h2>
+
+        <div class="status-row">
+          <span>Target</span>
+          <strong>Suba</strong>
+        </div>
+
+        <div class="status-row">
+          <span>Detections today</span>
+          <strong>0</strong>
+        </div>
+
+        <div class="status-row">
+          <span>Connected apps</span>
+          <strong>0</strong>
+        </div>
+
+        <div class="status-row">
+          <span>Action mode</span>
+          <strong>PC controlled</strong>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Quick Actions</h2>
+        <button>Refresh Status</button>
+        <button class="secondary">View History</button>
+        <button class="secondary">Open Settings</button>
+      </div>
+    </aside>
   </section>
 
-  <section class="card">
-    <h2>Detection Summary</h2>
-    <p>Detections today: <strong>0</strong></p>
-    <p>Last detection: <strong>None</strong></p>
-    <p>Connected apps: <strong>0</strong></p>
-  </section>
+  <section class="card event-log-card">
+    <div class="section-heading">
+      <div>
+        <h2>Event Log</h2>
+        <p class="subtitle">Recent detection events will appear here</p>
+      </div>
+    </div>
 
-  <section class="card">
-    <h2>Quick Actions</h2>
-    <button>Refresh Status</button>
-    <button class="secondary">View Detection History</button>
+    <div class="event-log">
+      <div class="event-row">
+        <span class="event-time">--:--:--</span>
+        <span class="event-message">Waiting for Raspberry Pi events...</span>
+      </div>
+    </div>
   </section>
 </main>
 {% endblock %}

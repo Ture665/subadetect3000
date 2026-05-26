@@ -349,3 +349,152 @@ nav a:hover {
     font-size: 28px;
   }
 }
+
+.detection-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.status-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.mini-card {
+  background: #060606;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.mini-card span {
+  display: block;
+  color: #888;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.mini-card strong {
+  color: #e0e0e0;
+}
+
+.detection-main-grid {
+  display: grid;
+  grid-template-columns: 1.7fr 0.8fr;
+  gap: 18px;
+}
+
+.live-panel {
+  min-height: 500px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.live-badge {
+  color: #888;
+  border: 1px solid #333;
+  background: #101010;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.camera-frame {
+  height: 400px;
+  border: 1px solid #222;
+  border-radius: 8px;
+  background: linear-gradient(rgba(76, 255, 76, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(76, 255, 76, 0.03) 1px, transparent 1px),
+    #020202;
+  background-size: 24px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line {
+  width: 260px;
+  height: 2px;
+  background: #4cff4c;
+  opacity: 0.45;
+  margin: 0 auto 18px auto;
+  animation: scanPulse 1.6s infinite;
+}
+
+@keyframes scanPulse {
+  0%,
+  100% {
+    transform: translateY(-20px);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: translateY(20px);
+    opacity: 0.7;
+  }
+}
+
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.event-log-card {
+  min-height: 160px;
+}
+
+.event-log {
+  border: 1px solid #1a1a1a;
+  border-radius: 6px;
+  background: #020202;
+  padding: 12px;
+}
+
+.event-row {
+  display: flex;
+  gap: 14px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.event-time {
+  color: #4cff4c;
+}
+
+.event-message {
+  color: #888;
+}
+
+@media (max-width: 1000px) {
+  .status-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .detection-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .status-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .camera-frame {
+    height: 280px;
+  }
+}
