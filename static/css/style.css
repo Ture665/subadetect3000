@@ -360,7 +360,7 @@ nav a:hover {
 
 .status-strip {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 14px;
 }
 
@@ -380,6 +380,7 @@ nav a:hover {
 
 .mini-card strong {
   color: #e0e0e0;
+  word-break: break-word;
 }
 
 .detection-main-grid {
