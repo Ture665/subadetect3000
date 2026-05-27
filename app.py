@@ -43,7 +43,8 @@ except Exception as e:
             "status": "Unavailable on this device",
             "fps": 0,
             "latest_detection": "None",
-            "connected_clients": 0
+            "connected_clients": 0,
+            "detections_today": 0
         }
 
 

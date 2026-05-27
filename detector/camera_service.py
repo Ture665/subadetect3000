@@ -272,6 +272,6 @@ def get_camera_status():
         "status": camera_status,
         "fps": latest_fps,
         "latest_detection": latest_detection,
-        "connected_clients": len(clients)
+        "connected_clients": len(clients),
         "detections_today": detections_today
     }
