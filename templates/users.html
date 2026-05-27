@@ -1,0 +1,58 @@
+{% extends "base.html" %} {% block page_title %}◈ ADMIN{% endblock %} {% block
+page_subtitle %}Admin Panel{% endblock %} {% block content %}
+<main class="users-layout">
+  <section class="card">
+    <h2>Create User</h2>
+
+    {% if error %}
+    <div class="error-box">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="/users/create" class="user-form">
+      <label>Username</label>
+      <input type="text" name="username" placeholder="new user" required />
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="password" required />
+
+      <label>Role</label>
+      <select name="role">
+        <option value="user">user</option>
+        <option value="admin">admin</option>
+      </select>
+
+      <button type="submit">Create User</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Existing Users</h2>
+
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+            <form method="POST" action="/users/delete/{{ user.id }}">
+              <button class="small-danger-btn" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</main>
+{% endblock %}

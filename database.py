@@ -83,3 +83,20 @@ def authenticate_user(username: str, password: str):
 
 def seed_default_admin():
     create_user("admin", "admin", role="admin")
+
+def get_all_users():
+    with Session(engine) as session:
+        statement = select(User).order_by(User.id)
+        return session.exec(statement).all()
+
+
+def delete_user(user_id: int):
+    with Session(engine) as session:
+        user = session.get(User, user_id)
+
+        if not user:
+            return False
+
+        session.delete(user)
+        session.commit()
+        return True

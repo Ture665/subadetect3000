@@ -24,6 +24,9 @@
           <a href="/detection">Detection</a>
           <a href="/downloads">Downloads</a>
           <a href="/about">About</a>
+          {% if role == "admin" %}
+          <a href="/users">Admin</a>
+          {% endif %}
 
           <div class="profile-menu">
             <button
@@ -42,7 +45,7 @@
             <div class="profile-dropdown" id="profileDropdown">
               <div class="profile-dropdown-header">
                 <span>Signed in as</span>
-                <strong>{{ username or "admin" }}</strong>
+                <strong>{{ username or "Unknown" }}</strong>
               </div>
 
               <a href="/account">Account</a>
