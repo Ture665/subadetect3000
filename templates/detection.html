@@ -6,32 +6,32 @@ endblock %} {% block content %}
   <section class="status-strip">
     <div class="mini-card">
       <span>Server</span>
-      <strong class="online">{{ server_status }}</strong>
+      <strong class="online" id="serverStatus">{{ server_status }}</strong>
     </div>
   
     <div class="mini-card">
       <span>Camera</span>
-      <strong>{{ camera_status }}</strong>
+      <strong id="cameraStatus">{{ camera_status }}</strong>
     </div>
   
     <div class="mini-card">
       <span>Pi IP</span>
-      <strong>{{ pi_ip }}</strong>
+      <strong id="piIp">{{ pi_ip }}</strong>
     </div>
   
     <div class="mini-card">
       <span>Temperature</span>
-      <strong>{{ temperature }}</strong>
+      <strong id="temperature">{{ temperature }}</strong>
     </div>
   
     <div class="mini-card">
       <span>FPS</span>
-      <strong>{{ fps }}</strong>
+      <strong id="fps">{{ fps }}</strong>
     </div>
   
     <div class="mini-card">
       <span>Last Detection</span>
-      <strong>{{ last_detection }}</strong>
+      <strong id="lastDetection">{{ last_detection }}</strong>
     </div>
   </section>
 
@@ -72,12 +72,12 @@ endblock %} {% block content %}
 
         <div class="status-row">
           <span>Detections today</span>
-          <strong>{{ detections_today }}</strong>
+          <strong id="detectionsToday">{{ detections_today }}</strong>
         </div>
 
         <div class="status-row">
           <span>Connected apps</span>
-          <strong>{{ connected_apps }}</strong>
+          <strong id="connectedApps">{{ connected_apps }}</strong>
         </div>
 
         <div class="status-row">
@@ -89,7 +89,7 @@ endblock %} {% block content %}
       <div class="card">
         <h2>Quick Actions</h2>
       
-        <button type="button" onclick="window.location.reload(true)">
+        <button type="button" onclick="refreshStatus()">
           Refresh Status
         </button>
       
