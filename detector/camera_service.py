@@ -31,6 +31,7 @@ camera_running = False
 camera_status = "Starting"
 latest_fps = 0
 latest_detection = "None"
+detections_today = 0
 
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -88,7 +89,7 @@ cooldown_seconds = 5
 
 def process_frame(frame):
     global face_locations, face_encodings, face_names
-    global last_sent_name, last_sent_time, latest_detection
+    global last_sent_name, last_sent_time, latest_detection, detections_today
 
     resized_frame = cv2.resize(
         frame,
@@ -145,6 +146,7 @@ def process_frame(frame):
                     }
 
                     broadcast(json.dumps(event))
+                    detections_today += 1
                     # print("Sent event:", event)
 
                     last_sent_name = name
@@ -271,4 +273,5 @@ def get_camera_status():
         "fps": latest_fps,
         "latest_detection": latest_detection,
         "connected_clients": len(clients)
+        "detections_today": detections_today
     }

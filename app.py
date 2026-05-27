@@ -250,6 +250,7 @@ def detection(request: Request):
             "fps": camera_info["fps"],
             "last_detection": camera_info["latest_detection"],
             "connected_apps": camera_info["connected_clients"],
+            "detections_today": camera_info["detections_today"],
             "camera_available": CAMERA_AVAILABLE
         }
     )
