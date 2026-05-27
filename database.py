@@ -49,10 +49,11 @@ def get_user_by_username(username: str):
 
 def create_user(username: str, password: str, role: str = "user"):
     with Session(engine) as session:
-        existing_user = get_user_by_username(username)
+        statement = select(User).where(User.username == username)
+        existing_user = session.exec(statement).first()
 
         if existing_user:
-            return existing_user
+            return None
 
         password_hash, salt = hash_password(password)
 
@@ -100,3 +101,13 @@ def delete_user(user_id: int):
         session.delete(user)
         session.commit()
         return True
+    
+def count_admin_users() -> int:
+    with Session(engine) as session:
+        statement = select(User).where(User.role == "admin")
+        return len(session.exec(statement).all())
+
+
+def get_user_by_id(user_id: int):
+    with Session(engine) as session:
+        return session.get(User, user_id)

@@ -1,5 +1,4 @@
 from pathlib import Path
-
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -12,7 +11,9 @@ from database import (
     authenticate_user,
     create_user,
     get_all_users,
-    delete_user
+    delete_user,
+    get_user_by_id,
+    count_admin_users
 )
 
 
@@ -93,6 +94,64 @@ def logout(request: Request):
     request.session.clear()
     return RedirectResponse(url="/login", status_code=303)
 
+@app.get("/register", response_class=HTMLResponse)
+def register_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "register.html",
+        {
+            "error": None,
+            "show_nav": False
+        }
+    )
+
+
+@app.post("/register", response_class=HTMLResponse)
+def register_submit(
+    request: Request,
+    username: str = Form(...),
+    password: str = Form(...),
+    confirm_password: str = Form(...)
+):
+    username = username.strip()
+
+    if not username or not password:
+        return templates.TemplateResponse(
+            request,
+            "register.html",
+            {
+                "error": "Username and password are required",
+                "show_nav": False
+            }
+        )
+
+    if password != confirm_password:
+        return templates.TemplateResponse(
+            request,
+            "register.html",
+            {
+                "error": "Passwords do not match",
+                "show_nav": False
+            }
+        )
+
+    new_user = create_user(username, password, role="user")
+
+    if not new_user:
+        return templates.TemplateResponse(
+            request,
+            "register.html",
+            {
+                "error": "A user with that username already exists",
+                "show_nav": False
+            }
+        )
+
+    request.session["logged_in"] = True
+    request.session["username"] = new_user.username
+    request.session["role"] = new_user.role
+
+    return RedirectResponse(url="/dashboard", status_code=303)
 
 @app.get("/dashboard", response_class=HTMLResponse)
 def dashboard(request: Request):
@@ -194,34 +253,16 @@ def users_page(request: Request):
         }
     )
 
-@app.post("/users/create", response_class=HTMLResponse)
-def create_user_route(
-    request: Request,
-    username: str = Form(...),
-    password: str = Form(...),
-    role: str = Form("user")
-):
-    redirect = require_admin(request)
-    if redirect:
-        return redirect
-
-    if not username.strip() or not password.strip():
-        users = get_all_users()
-
-        return templates.TemplateResponse(
-            request,
-            "users.html",
-            {
-                "username": request.session.get("username", "admin"),
-                "role": request.session.get("role", "user"),
-                "users": users,
-                "error": "Username and password are required"
-            }
-        )
-
-    create_user(username.strip(), password, role)
-
-    return RedirectResponse(url="/users", status_code=303)
+from database import (
+    create_db_and_tables,
+    seed_default_admin,
+    authenticate_user,
+    create_user,
+    get_all_users,
+    delete_user,
+    get_user_by_id,
+    count_admin_users
+)
 
 
 @app.post("/users/delete/{user_id}")
@@ -229,6 +270,37 @@ def delete_user_route(request: Request, user_id: int):
     redirect = require_admin(request)
     if redirect:
         return redirect
+
+    user = get_user_by_id(user_id)
+
+    if not user:
+        return RedirectResponse(url="/users", status_code=303)
+
+    if user.username == request.session.get("username"):
+        users = get_all_users()
+        return templates.TemplateResponse(
+            request,
+            "users.html",
+            {
+                "username": request.session.get("username", "Unknown"),
+                "role": request.session.get("role", "user"),
+                "users": users,
+                "error": "You cannot delete your own account while logged in"
+            }
+        )
+
+    if user.role == "admin" and count_admin_users() <= 1:
+        users = get_all_users()
+        return templates.TemplateResponse(
+            request,
+            "users.html",
+            {
+                "username": request.session.get("username", "Unknown"),
+                "role": request.session.get("role", "user"),
+                "users": users,
+                "error": "You cannot delete the last admin account"
+            }
+        )
 
     delete_user(user_id)
 

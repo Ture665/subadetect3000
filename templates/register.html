@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block content %}
+<div class="login-wrapper">
+  <div class="card login-card">
+    <h1>◈ CREATE ACCOUNT</h1>
+    <p class="subtitle">Register for Subaharan Detector 3000</p>
+
+    {% if error %}
+    <div class="error-box">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="/register">
+      <label>Username</label>
+      <input
+        type="text"
+        name="username"
+        placeholder="choose username"
+        required
+      />
+
+      <label>Password</label>
+      <input
+        type="password"
+        name="password"
+        placeholder="choose password"
+        required
+      />
+
+      <label>Confirm Password</label>
+      <input
+        type="password"
+        name="confirm_password"
+        placeholder="repeat password"
+        required
+      />
+
+      <button type="submit">Create Account</button>
+    </form>
+
+    <p class="hint">
+      Already have an account?
+      <a href="/login">Login here</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
