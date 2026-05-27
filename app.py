@@ -5,6 +5,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 import uvicorn
+import socket
+import subprocess
 from database import (
     create_db_and_tables,
     seed_default_admin,
@@ -47,6 +49,30 @@ def require_admin(request: Request):
         return RedirectResponse(url="/dashboard", status_code=303)
 
     return None
+
+def get_pi_status():
+    hostname = socket.gethostname()
+    
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip_address = s.getsockname()[0]
+        s.close()
+    except Exception:
+        ip_address = "Unknown"
+        
+    try:
+        temp_output = subprocess.check_output(["vcgencmd", "measure_temp"]).decode()
+        temperature = temp_output.replace("temp=", "").strip()
+    except Exception:
+        temperature = "Unavailable"
+        
+    return {
+        "hostname": hostname,
+        "ip_address": ip_address,
+        "temperature": temperature,
+        "server": "ONLINE"
+    }
 
 @app.get("/", response_class=HTMLResponse)
 def root():
@@ -174,6 +200,8 @@ def detection(request: Request):
     redirect = require_login(request)
     if redirect:
         return redirect
+    
+    pi_status = get_pi_status()
 
     return templates.TemplateResponse(
         request,
@@ -181,9 +209,10 @@ def detection(request: Request):
         {
             "username": request.session.get("username", "Unknown"),
             "role": request.session.get("role", "user"),
-            "server_status": "ONLINE",
-            "pi_ip": "Not connected yet",
-            "camera_status": "Not added yet"
+            "server_status": pi_status["server"],
+            "pi_ip": pi_status["ip_address"],
+            "camera_status": "Not added yet",
+            "temperature": pi_status["temperature"]
         }
     )
 
@@ -308,12 +337,7 @@ def delete_user_route(request: Request, user_id: int):
 
 @app.get("/status")
 def status():
-    return {
-        "server": "online",
-        "project": "Subaharan Detector 3000",
-        "camera": "not_added_yet"
-    }
-
+    return get_pi_status()
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
