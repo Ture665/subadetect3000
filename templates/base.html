@@ -3,11 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <title>Subaharan Detector 3000</title>
-    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/style.css') }}"
+    />
   </head>
   <body>
-    <div class="page">{% block content %}{% endblock %}</div>
+    <div class="page">
+      {% if show_nav != False %}
+      <header class="topbar">
+        <div>
+          <h1>{% block page_title %}◈ SUBAHARAN DETECTOR 3000{% endblock %}</h1>
+          <p class="subtitle">
+            {% block page_subtitle %}Web Control Center{% endblock %}
+          </p>
+        </div>
 
-    <script src="/static/js/app.js"></script>
+        <nav>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/detection">Detection</a>
+          <a href="/downloads">Downloads</a>
+          <a href="/about">About</a>
+
+          <div class="profile-menu">
+            <button
+              class="profile-btn"
+              id="profileBtn"
+              type="button"
+              aria-label="Open profile menu"
+            >
+              <img
+                class="profile-icon"
+                src="/static/images/icons/account.svg"
+                alt="Profile"
+              />
+            </button>
+
+            <div class="profile-dropdown" id="profileDropdown">
+              <div class="profile-dropdown-header">
+                <span>Signed in as</span>
+                <strong>{{ username or "admin" }}</strong>
+              </div>
+
+              <a href="/account">Account</a>
+              <a href="/logout" class="danger-link">Logout</a>
+            </div>
+          </div>
+        </nav>
+      </header>
+      {% endif %} {% block content %}{% endblock %}
+    </div>
+
+    <script src="{{ url_for('static', path='js/app.js') }}"></script>
   </body>
 </html>

@@ -1,18 +1,6 @@
-{% extends "base.html" %} {% block content %}
-<header class="topbar">
-  <div>
-    <h1>◈ DETECTION CENTER</h1>
-    <p class="subtitle">Live camera, detection status, and system events</p>
-  </div>
-
-  <nav>
-    <a href="/dashboard">Dashboard</a>
-    <a href="/detection">Detection</a>
-    <a href="/downloads">Downloads</a>
-    <a href="/about">About</a>
-    <a href="/logout">Logout</a>
-  </nav>
-</header>
+{% extends "base.html" %} {% block page_title %}◈ DETECTION CENTER{% endblock %}
+{% block page_subtitle %}Live camera, detection status, and system events{%
+endblock %} {% block content %}
 
 <main class="detection-layout">
   <section class="status-strip">

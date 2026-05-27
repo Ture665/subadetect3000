@@ -42,7 +42,8 @@ def login_page(request: Request):
         request,
         "login.html",
         {
-            "error": None
+            "error": None,
+            "show_nav": False
         }
     )
 
@@ -65,7 +66,8 @@ def login_submit(
         request,
         "login.html",
         {
-            "error": "Invalid username or password"
+            "error": "Invalid username or password",
+            "show_nav": False
         }
     )
 
