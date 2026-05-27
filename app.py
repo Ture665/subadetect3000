@@ -1,11 +1,12 @@
 from pathlib import Path
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 import uvicorn
 import socket
+import threading
 import subprocess
 from database import (
     create_db_and_tables,
@@ -16,6 +17,11 @@ from database import (
     delete_user,
     get_user_by_id,
     count_admin_users
+)
+from detector.camera_service import (
+    start_camera_service,
+    generate_video_frames,
+    get_camera_status
 )
 
 
@@ -33,6 +39,10 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 create_db_and_tables()
 seed_default_admin()
+
+@app.on_event("startup")
+def startup_event():
+    threading.Thread(target=start_camera_service, daemon=True).start()
 
 def require_login(request: Request):
     if not request.session.get("logged_in"):
@@ -200,8 +210,9 @@ def detection(request: Request):
     redirect = require_login(request)
     if redirect:
         return redirect
-    
+
     pi_status = get_pi_status()
+    camera_info = get_camera_status()
 
     return templates.TemplateResponse(
         request,
@@ -211,11 +222,13 @@ def detection(request: Request):
             "role": request.session.get("role", "user"),
             "server_status": pi_status["server"],
             "pi_ip": pi_status["ip_address"],
-            "camera_status": "Not added yet",
-            "temperature": pi_status["temperature"]
+            "camera_status": camera_info["status"],
+            "temperature": pi_status["temperature"],
+            "fps": camera_info["fps"],
+            "last_detection": camera_info["latest_detection"],
+            "connected_apps": camera_info["connected_clients"]
         }
     )
-
 
 @app.get("/downloads", response_class=HTMLResponse)
 def downloads(request: Request):
@@ -337,7 +350,20 @@ def delete_user_route(request: Request, user_id: int):
 
 @app.get("/status")
 def status():
-    return get_pi_status()
+    pi_status = get_pi_status()
+    camera_info = get_camera_status()
+    
+    return {
+        **pi_status,
+        "camera": camera_info
+    }
+
+@app.get("/video_feed")
+def video_feed():
+    return StreamingResponse(
+        generate_video_frames(),
+        media_type="multipart/x-mixed-replace; boundary=frame"
+    )
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
