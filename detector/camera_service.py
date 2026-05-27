@@ -9,6 +9,7 @@ import threading
 import json
 from pathlib import Path
 from database import create_detection_event
+from settings_manager import load_settings
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -34,10 +35,19 @@ latest_fps = 0
 latest_detection = "None"
 detections_today = 0
 
+settings = load_settings()
+
+print("[INFO] Detector settings loaded:", settings)
+
+target_name = settings["target_name"]
+cooldown_seconds = settings["cooldown_seconds"]
+socket_port = settings["socket_port"]
+camera_width = settings["camera_width"]
+camera_height = settings["camera_height"]
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-server.bind(("", 5000))
+server.bind(("", socket_port))
 server.listen(5)
 
 
@@ -85,8 +95,6 @@ fps = 0
 
 last_sent_name = ""
 last_sent_time = 0
-cooldown_seconds = 5
-
 
 def process_frame(frame):
     global face_locations, face_encodings, face_names
@@ -141,7 +149,7 @@ def process_frame(frame):
                     event = {
                         "type": "face_detected",
                         "name": name,
-                        "action": "suba_detected" if name == "suba" else "none",
+                        "action": "suba_detected" if name == target_name else "none",
                         "timestamp": time.time(),
                         "distance": float(face_distances[best_match_index])
                     }
@@ -227,7 +235,7 @@ def start_camera_service():
     picam2 = Picamera2()
     picam2.configure(
         picam2.create_preview_configuration(
-            main={"format": "XRGB8888", "size": (640, 480)}
+            main={"format": "XRGB8888", "size": (camera_width, camera_height)}
         )
     )
     picam2.start()
