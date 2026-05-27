@@ -620,3 +620,19 @@ nav > a {
   height: 22px;
   display: block;
 }
+
+.account-panel {
+  max-width: 720px;
+  width: 100%;
+  align-self: center;
+}
+
+.danger-button {
+  background: #3a1a1a !important;
+  color: #ff5555 !important;
+  border-color: #ff5555 !important;
+}
+
+.danger-button:hover {
+  background: #4a2020 !important;
+}

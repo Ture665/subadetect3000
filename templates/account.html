@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block page_title %}◈ ACCOUNT{% endblock %} {% block
+page_subtitle %}Profile and session information{% endblock %} {% block content
+%}
+<main class="welcome-layout">
+  <section class="card account-panel">
+    <h2>Account</h2>
+
+    <div class="status-row">
+      <span>Username</span>
+      <strong>{{ username }}</strong>
+    </div>
+
+    <div class="status-row">
+      <span>Role</span>
+      <strong>{{ role }}</strong>
+    </div>
+
+    <div class="status-row">
+      <span>Status</span>
+      <strong class="online">Logged in</strong>
+    </div>
+
+    <div class="hero-actions">
+      <a class="button-link secondary" href="/dashboard">Back to Dashboard</a>
+      <a class="button-link danger-button" href="/logout">Logout</a>
+    </div>
+  </section>
+</main>
+{% endblock %}

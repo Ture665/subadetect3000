@@ -135,6 +135,20 @@ def about(request: Request):
         {}
     )
 
+@app.get("/account", response_class=HTMLResponse)
+def account(request: Request):
+    redirect = require_login(request)
+    if redirect:
+        return redirect
+
+    return templates.TemplateResponse(
+        request,
+        "account.html",
+        {
+            "username": request.session.get("username", "admin"),
+            "role": request.session.get("role", "user")
+        }
+    )
 
 @app.get("/status")
 def status():
