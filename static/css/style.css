@@ -9,6 +9,15 @@ body {
   font-family: Consolas, "Courier New", monospace;
 }
 
+a {
+  color: #4cff4c;
+  text-decoration: none;
+}
+
+a:hover {
+  color: white;
+}
+
 .page {
   min-height: 100vh;
   padding: 28px;
@@ -88,6 +97,37 @@ button.secondary {
   background: #1a1a2e;
   color: #aaa;
   border-color: #333;
+}
+
+.button-link {
+  margin-top: 14px;
+  background: #1a3a1a;
+  color: #4cff4c;
+  border: 1px solid #4cff4c;
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-link:hover {
+  background: #245024;
+  color: #4cff4c;
+}
+
+.button-link.secondary {
+  background: #1a1a2e;
+  color: #aaa;
+  border-color: #333;
+}
+
+.button-link.secondary:hover {
+  background: #22223a;
+  color: #e0e0e0;
 }
 
 .error-box {
@@ -709,9 +749,7 @@ nav > a {
 }
 
 .full-width-link {
-  display: block;
-  text-align: center;
-  margin-top: 12px;
+  margin-top: 0;
 }
 
 .welcome-only-card {
@@ -792,4 +830,78 @@ nav > a {
   .two-download-cards {
     grid-template-columns: 1fr;
   }
+}
+
+.quick-actions-card button,
+.quick-actions-card .button-link {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 14px;
+}
+
+.quick-actions-card button:first-of-type,
+.quick-actions-card .button-link:first-of-type {
+  margin-top: 0;
+}
+
+.quick-actions-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.quick-actions-card h2 {
+  margin-bottom: 22px;
+}
+
+.quick-actions-card button,
+.quick-actions-card .button-link {
+  width: 205px;
+  min-height: 46px;
+  margin-top: 0;
+  margin-bottom: 14px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.quick-actions-card .button-link.secondary {
+  background: #102010;
+  color: #4cff4c;
+  border: 1px solid #2f8f2f;
+}
+
+.quick-actions-card .button-link.secondary:hover {
+  background: #183018;
+  color: white;
+  border-color: #4cff4c;
+}
+
+.side-panel {
+  align-items: stretch;
+}
+
+.quick-actions-card {
+  height: auto;
+  align-self: start;
+  padding-top: 10px;
+  padding-bottom: 11px;
+  padding-right: 115px;
+}
+
+.quick-actions-card button,
+.quick-actions-card .button-link {
+  width: 300px;
+  max-width: 100%;
+}
+
+.quick-actions-card button,
+.quick-actions-card .button-link {
+  width: 220px;
+  min-height: 46px;
 }

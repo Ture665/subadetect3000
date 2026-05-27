@@ -8,27 +8,27 @@ endblock %} {% block content %}
       <span>Server</span>
       <strong class="online" id="serverStatus">{{ server_status }}</strong>
     </div>
-  
+
     <div class="mini-card">
       <span>Camera</span>
       <strong id="cameraStatus">{{ camera_status }}</strong>
     </div>
-  
+
     <div class="mini-card">
       <span>Pi IP</span>
       <strong id="piIp">{{ pi_ip }}</strong>
     </div>
-  
+
     <div class="mini-card">
       <span>Temperature</span>
       <strong id="temperature">{{ temperature }}</strong>
     </div>
-  
+
     <div class="mini-card">
       <span>FPS</span>
       <strong id="fps">{{ fps }}</strong>
     </div>
-  
+
     <div class="mini-card">
       <span>Last Detection</span>
       <strong id="lastDetection">{{ last_detection }}</strong>
@@ -48,18 +48,15 @@ endblock %} {% block content %}
 
       <div class="camera-frame">
         {% if camera_available %}
-            <img src="/video_feed" class="live-feed" alt="Live camera feed">
+        <img src="/video_feed" class="live-feed" alt="Live camera feed" />
         {% else %}
-            <div>
-                <div class="scan-line"></div>
-                <p>CAMERA FEED ONLY AVAILABLE ON RASPBERRY PI</p>
-            </div>
+        <div>
+          <div class="scan-line"></div>
+          <p>CAMERA FEED ONLY AVAILABLE ON RASPBERRY PI</p>
+        </div>
         {% endif %}
+      </div>
     </div>
-    
-    </div>
-    
-    <aside class="side-panel">
 
     <aside class="side-panel">
       <div class="card">
@@ -86,21 +83,19 @@ endblock %} {% block content %}
         </div>
       </div>
 
-      <div class="card">
+      <div class="card quick-actions-card">
         <h2>Quick Actions</h2>
-      
-        <button type="button" onclick="refreshStatus()">
-          Refresh Status
-        </button>
-      
+
+        <button type="button" onclick="refreshStatus()">Refresh Status</button>
+
         {% if role == "admin" %}
-          <a class="button-link secondary full-width-link" href="/history">
-            View History
-          </a>
-      
-          <a class="button-link secondary full-width-link" href="/settings">
-            Open Admin Settings
-          </a>
+        <a class="button-link secondary full-width-link" href="/history">
+          View History
+        </a>
+
+        <a class="button-link secondary full-width-link" href="/settings">
+          Open Admin Settings
+        </a>
         {% endif %}
       </div>
     </aside>
