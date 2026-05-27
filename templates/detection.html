@@ -42,8 +42,19 @@ endblock %} {% block content %}
       </div>
 
       <div class="camera-frame">
-        <img src="/video_feed" class="live-feed" alt="Live camera feed">
+        {% if camera_available %}
+            <img src="/video_feed" class="live-feed" alt="Live camera feed">
+        {% else %}
+            <div>
+                <div class="scan-line"></div>
+                <p>CAMERA FEED ONLY AVAILABLE ON RASPBERRY PI</p>
+            </div>
+        {% endif %}
     </div>
+    
+    </div>
+    
+    <aside class="side-panel">
 
     <aside class="side-panel">
       <div class="card">

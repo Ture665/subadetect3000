@@ -18,11 +18,33 @@ from database import (
     get_user_by_id,
     count_admin_users
 )
-from detector.camera_service import (
-    start_camera_service,
-    generate_video_frames,
-    get_camera_status
-)
+
+CAMERA_AVAILABLE = True
+
+try:
+    from detector.camera_service import (
+        start_camera_service,
+        generate_video_frames,
+        get_camera_status
+    )
+except Exception as e:
+    CAMERA_AVAILABLE = False
+    print(f"[WARN] Camera service unavailable: {e}")
+
+    def start_camera_service():
+        pass
+
+    def generate_video_frames():
+        while True:
+            yield b""
+
+    def get_camera_status():
+        return {
+            "status": "Unavailable on this device",
+            "fps": 0,
+            "latest_detection": "None",
+            "connected_clients": 0
+        }
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -42,7 +64,8 @@ seed_default_admin()
 
 @app.on_event("startup")
 def startup_event():
-    threading.Thread(target=start_camera_service, daemon=True).start()
+    if CAMERA_AVAILABLE:
+        threading.Thread(target=start_camera_service, daemon=True).start()
 
 def require_login(request: Request):
     if not request.session.get("logged_in"):
@@ -226,7 +249,8 @@ def detection(request: Request):
             "temperature": pi_status["temperature"],
             "fps": camera_info["fps"],
             "last_detection": camera_info["latest_detection"],
-            "connected_apps": camera_info["connected_clients"]
+            "connected_apps": camera_info["connected_clients"],
+            "camera_available": CAMERA_AVAILABLE
         }
     )
 
@@ -294,18 +318,6 @@ def users_page(request: Request):
             "error": None
         }
     )
-
-from database import (
-    create_db_and_tables,
-    seed_default_admin,
-    authenticate_user,
-    create_user,
-    get_all_users,
-    delete_user,
-    get_user_by_id,
-    count_admin_users
-)
-
 
 @app.post("/users/delete/{user_id}")
 def delete_user_route(request: Request, user_id: int):
