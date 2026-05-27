@@ -707,3 +707,26 @@ nav > a {
 .hint a:hover {
   color: white;
 }
+
+.full-width-link {
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.welcome-only-card {
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.welcome-only-card h2 {
+  font-size: 34px;
+}
+
+.welcome-only-card p {
+  max-width: 850px;
+  line-height: 1.8;
+  color: #cfcfcf;
+}

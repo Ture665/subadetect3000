@@ -88,27 +88,22 @@ endblock %} {% block content %}
 
       <div class="card">
         <h2>Quick Actions</h2>
-        <button>Refresh Status</button>
-        <button class="secondary">View History</button>
-        <button class="secondary">Open Settings</button>
+      
+        <button type="button" onclick="window.location.reload(true)">
+          Refresh Status
+        </button>
+      
+        {% if role == "admin" %}
+          <a class="button-link secondary full-width-link" href="/history">
+            View History
+          </a>
+      
+          <a class="button-link secondary full-width-link" href="/users">
+            Open Admin Settings
+          </a>
+        {% endif %}
       </div>
     </aside>
-  </section>
-
-  <section class="card event-log-card">
-    <div class="section-heading">
-      <div>
-        <h2>Event Log</h2>
-        <p class="subtitle">Recent detection events will appear here</p>
-      </div>
-    </div>
-
-    <div class="event-log">
-      <div class="event-row">
-        <span class="event-time">--:--:--</span>
-        <span class="event-message">Waiting for Raspberry Pi events...</span>
-      </div>
-    </div>
   </section>
 </main>
 {% endblock %}

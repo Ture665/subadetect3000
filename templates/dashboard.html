@@ -1,40 +1,17 @@
 {% extends "base.html" %} {% block page_title %}◈ SUBAHARAN DETECTOR 3000{%
 endblock %} {% block page_subtitle %}Web Control Center{% endblock %} {% block
 content %}
-
 <main class="welcome-layout">
-  <section class="card hero-card">
+  <section class="card hero-card welcome-only-card">
     <h2>Welcome, {{ username }}</h2>
+
     <p>
-      This is the central control dashboard for the Subaharan Detector 3000.
-      From here you can monitor face detection, access downloads, and view
-      project information.
+      This is the central web interface for Subaharan Detector 3000. From here,
+      you can monitor the Raspberry Pi detector, access downloads, manage your
+      account, and view project information.
     </p>
 
-    <div class="hero-actions">
-      <a class="button-link" href="/detection">Open Detection Center</a>
-      <a class="button-link secondary" href="/downloads">Download Files</a>
-    </div>
-  </section>
-
-  <section class="quick-grid">
-    <div class="card">
-      <h2>Detection</h2>
-      <p>View camera status, live feed placeholder, and detection summaries.</p>
-      <a href="/detection">Go to Detection →</a>
-    </div>
-
-    <div class="card">
-      <h2>Downloads</h2>
-      <p>Download the PC app, Raspberry Pi files, and setup guide.</p>
-      <a href="/downloads">Go to Downloads →</a>
-    </div>
-
-    <div class="card">
-      <h2>About</h2>
-      <p>Learn about the project, technologies, and system design.</p>
-      <a href="/about">Go to About →</a>
-    </div>
+    <p>Use the navigation menu above to move between the dashboard sections.</p>
   </section>
 </main>
 {% endblock %}
