@@ -736,3 +736,28 @@ nav > a {
   flex-direction: column;
   gap: 18px;
 }
+
+.settings-layout {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 18px;
+}
+
+.settings-panel {
+  max-width: 720px;
+}
+
+.success-box {
+  background: #102010;
+  color: #4cff4c;
+  border: 1px solid #4cff4c;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 900px) {
+  .settings-layout {
+    grid-template-columns: 1fr;
+  }
+}

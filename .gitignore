@@ -5,6 +5,7 @@ __pycache__/
 database.db
 *.log
 encodings.pickle
+settings.json
 
 detector/dataset/
 detector/encodings.pickle

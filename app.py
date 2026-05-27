@@ -4,6 +4,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
+from settings_manager import load_settings, save_settings
 import uvicorn
 import socket
 import threading
@@ -255,6 +256,60 @@ def clear_history(request: Request):
     clear_detection_events()
 
     return RedirectResponse(url="/history", status_code=303)
+
+@app.get("/settings", response_class=HTMLResponse)
+def settings_page(request: Request):
+    redirect = require_admin(request)
+    if redirect:
+        return redirect
+
+    settings = load_settings()
+
+    return templates.TemplateResponse(
+        request,
+        "settings.html",
+        {
+            "username": request.session.get("username", "Unknown"),
+            "role": request.session.get("role", "user"),
+            "settings": settings,
+            "message": None
+        }
+    )
+
+
+@app.post("/settings", response_class=HTMLResponse)
+def settings_submit(
+    request: Request,
+    target_name: str = Form(...),
+    cooldown_seconds: int = Form(...),
+    socket_port: int = Form(...),
+    camera_width: int = Form(...),
+    camera_height: int = Form(...)
+):
+    redirect = require_admin(request)
+    if redirect:
+        return redirect
+
+    settings = {
+        "target_name": target_name.strip(),
+        "cooldown_seconds": cooldown_seconds,
+        "socket_port": socket_port,
+        "camera_width": camera_width,
+        "camera_height": camera_height
+    }
+
+    save_settings(settings)
+
+    return templates.TemplateResponse(
+        request,
+        "settings.html",
+        {
+            "username": request.session.get("username", "Unknown"),
+            "role": request.session.get("role", "user"),
+            "settings": settings,
+            "message": "Settings saved. Restart the server for detector changes to fully apply."
+        }
+    )
 
 @app.get("/dashboard", response_class=HTMLResponse)
 def dashboard(request: Request):

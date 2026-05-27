@@ -1,0 +1,81 @@
+{% extends "base.html" %} {% block page_title %}◈ ADMIN SETTINGS{% endblock %}
+{% block page_subtitle %}Detector and server configuration{% endblock %} {%
+block content %}
+<main class="settings-layout">
+  <section class="card settings-panel">
+    <h2>Detector Settings</h2>
+
+    {% if message %}
+    <div class="success-box">{{ message }}</div>
+    {% endif %}
+
+    <form method="POST" action="/settings">
+      <label>Target Name</label>
+      <input
+        type="text"
+        name="target_name"
+        value="{{ settings.target_name }}"
+        required
+      />
+
+      <label>Cooldown Seconds</label>
+      <input
+        type="number"
+        name="cooldown_seconds"
+        value="{{ settings.cooldown_seconds }}"
+        min="1"
+        max="60"
+        required
+      />
+
+      <label>Socket Port</label>
+      <input
+        type="number"
+        name="socket_port"
+        value="{{ settings.socket_port }}"
+        min="1"
+        max="65535"
+        required
+      />
+
+      <label>Camera Width</label>
+      <input
+        type="number"
+        name="camera_width"
+        value="{{ settings.camera_width }}"
+        min="160"
+        max="1920"
+        required
+      />
+
+      <label>Camera Height</label>
+      <input
+        type="number"
+        name="camera_height"
+        value="{{ settings.camera_height }}"
+        min="120"
+        max="1080"
+        required
+      />
+
+      <button type="submit">Save Settings</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Notes</h2>
+    <p>
+      These settings are stored locally on the Raspberry Pi in
+      <strong>settings.json</strong>.
+    </p>
+    <p>
+      Some detector changes may require restarting the server because the camera
+      and socket server start when the app starts.
+    </p>
+    <p>
+      Admin-only settings make the webserver more useful than just showing data.
+      This helps demonstrate configuration and backend functionality.
+    </p>
+  </section>
+</main>
+{% endblock %}
