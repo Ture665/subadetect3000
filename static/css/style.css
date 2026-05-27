@@ -327,7 +327,7 @@ nav a:hover {
 
 .download-card-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 18px;
 }
 
@@ -758,6 +758,38 @@ nav > a {
 
 @media (max-width: 900px) {
   .settings-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.two-download-cards {
+  grid-template-columns: 1fr 1fr;
+}
+
+.two-download-cards .version-panel {
+  max-width: none;
+  width: 100%;
+  align-self: stretch;
+}
+
+@media (max-width: 900px) {
+  .two-download-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.two-download-cards {
+  grid-template-columns: 1fr 1fr;
+}
+
+.two-download-cards .version-panel {
+  max-width: none;
+  width: 100%;
+  align-self: stretch;
+}
+
+@media (max-width: 900px) {
+  .two-download-cards {
     grid-template-columns: 1fr;
   }
 }

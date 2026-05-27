@@ -1,16 +1,20 @@
 {% extends "base.html" %} {% block page_title %}◈ DOWNLOADS{% endblock %} {%
 block page_subtitle %}Install files and setup resources{% endblock %} {% block
 content %}
-
 <main class="downloads-layout">
   <section class="card downloads-hero">
     <h1>SUBAHARAN DETECTOR 3000</h1>
     <p>
       Download the desktop control app and connect it to your Raspberry Pi
-      detector. More setup files and resources are available below.
+      detector. Raspberry Pi files and setup resources are available through the
+      Git repository below.
     </p>
 
-    <a class="main-download-btn" href="#">
+    <a
+      class="main-download-btn"
+      href="/static/downloads/subaharan-detector-pc.zip"
+      download
+    >
       <span>Download</span>
       <span class="download-icon">↓</span>
     </a>
@@ -20,27 +24,21 @@ content %}
     </p>
   </section>
 
-  <section class="download-card-grid">
+  <section class="download-card-grid two-download-cards">
     <div class="card download-card">
       <h2>Raspberry Pi Files</h2>
       <p>
-        Detector scripts, setup files, and requirements for running the camera
-        and face recognition system.
+        Detector scripts, setup files, requirements, and website code are
+        available in the GitHub repository.
       </p>
+
       <a
         class="button-link secondary"
         href="https://github.com/Ture665/subadetect3000"
-        >Git Repository</a
+        target="_blank"
       >
-    </div>
-
-    <div class="card download-card">
-      <h2>Setup Guide</h2>
-      <p>
-        Step-by-step instructions for installing dependencies, starting the
-        server, and connecting the PC app.
-      </p>
-      <a class="button-link secondary" href="#">Download Guide</a>
+        Git Repository
+      </a>
     </div>
 
     <section class="card version-panel">
