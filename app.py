@@ -16,7 +16,10 @@ from database import (
     get_all_users,
     delete_user,
     get_user_by_id,
-    count_admin_users
+    count_admin_users,
+    get_recent_detection_events,
+    delete_detection_event,
+    clear_detection_events
 )
 
 CAMERA_AVAILABLE = True
@@ -212,6 +215,46 @@ def register_submit(
     request.session["role"] = new_user.role
 
     return RedirectResponse(url="/dashboard", status_code=303)
+
+@app.get("/history", response_class=HTMLResponse)
+def history_page(request: Request):
+    redirect = require_admin(request)
+    if redirect:
+        return redirect
+
+    events = get_recent_detection_events()
+
+    return templates.TemplateResponse(
+        request,
+        "history.html",
+        {
+            "username": request.session.get("username", "Unknown"),
+            "role": request.session.get("role", "user"),
+            "events": events
+        }
+    )
+
+
+@app.post("/history/delete/{event_id}")
+def delete_history_event(request: Request, event_id: int):
+    redirect = require_admin(request)
+    if redirect:
+        return redirect
+
+    delete_detection_event(event_id)
+
+    return RedirectResponse(url="/history", status_code=303)
+
+
+@app.post("/history/clear")
+def clear_history(request: Request):
+    redirect = require_admin(request)
+    if redirect:
+        return redirect
+
+    clear_detection_events()
+
+    return RedirectResponse(url="/history", status_code=303)
 
 @app.get("/dashboard", response_class=HTMLResponse)
 def dashboard(request: Request):

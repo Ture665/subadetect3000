@@ -1,6 +1,7 @@
 from typing import Optional
 import hashlib
 import secrets
+from datetime import datetime
 
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
@@ -17,6 +18,12 @@ class User(SQLModel, table=True):
     salt: str
     role: str = "user"
 
+class DetectionEvent(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str
+    action: str
+    distance: float | None = None
+    timestamp: str = Field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
@@ -111,3 +118,44 @@ def count_admin_users() -> int:
 def get_user_by_id(user_id: int):
     with Session(engine) as session:
         return session.get(User, user_id)
+    
+def create_detection_event(name: str, action: str, distance: float | None = None):
+    with Session(engine) as session:
+        event = DetectionEvent(
+            name=name,
+            action=action,
+            distance=distance
+        )
+
+        session.add(event)
+        session.commit()
+        session.refresh(event)
+        return event
+
+
+def get_recent_detection_events(limit: int = 50):
+    with Session(engine) as session:
+        statement = select(DetectionEvent).order_by(DetectionEvent.id.desc()).limit(limit)
+        return session.exec(statement).all()
+
+
+def delete_detection_event(event_id: int):
+    with Session(engine) as session:
+        event = session.get(DetectionEvent, event_id)
+
+        if not event:
+            return False
+
+        session.delete(event)
+        session.commit()
+        return True
+
+
+def clear_detection_events():
+    with Session(engine) as session:
+        events = session.exec(select(DetectionEvent)).all()
+
+        for event in events:
+            session.delete(event)
+
+        session.commit()

@@ -730,3 +730,9 @@ nav > a {
   line-height: 1.8;
   color: #cfcfcf;
 }
+
+.history-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}

@@ -1,0 +1,55 @@
+{% extends "base.html" %} {% block page_title %}◈ DETECTION HISTORY{% endblock
+%} {% block page_subtitle %}Saved detection events{% endblock %} {% block
+content %}
+<main class="history-layout">
+  <section class="card">
+    <div class="section-heading">
+      <div>
+        <h2>Detection Events</h2>
+        <p class="subtitle">Recent saved detections from the Raspberry Pi</p>
+      </div>
+
+      <form method="POST" action="/history/clear">
+        <button class="small-danger-btn" type="submit">Clear All</button>
+      </form>
+    </div>
+
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Action</th>
+          <th>Distance</th>
+          <th>Timestamp</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for event in events %}
+        <tr>
+          <td>{{ event.id }}</td>
+          <td>{{ event.name }}</td>
+          <td>{{ event.action }}</td>
+          <td>
+            {% if event.distance is not none %} {{ "%.3f"|format(event.distance)
+            }} {% else %} - {% endif %}
+          </td>
+          <td>{{ event.timestamp }}</td>
+          <td>
+            <form method="POST" action="/history/delete/{{ event.id }}">
+              <button class="small-danger-btn" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6">No detection events saved yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</main>
+{% endblock %}
