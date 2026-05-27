@@ -905,3 +905,9 @@ nav > a {
   width: 220px;
   min-height: 46px;
 }
+
+.live-badge.online-badge {
+  color: #4cff4c;
+  border-color: #4cff4c;
+  background: #102010;
+}

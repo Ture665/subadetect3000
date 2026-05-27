@@ -43,7 +43,7 @@ endblock %} {% block content %}
           <p class="subtitle">Camera stream</p>
         </div>
 
-        <span class="live-badge">STANDBY</span>
+        <span class="live-badge" id="liveBadge">{{ camera_status }}</span>
       </div>
 
       <div class="camera-frame">

@@ -54,6 +54,11 @@ async function refreshStatus() {
       if (detectionsToday) {
         detectionsToday.textContent = data.camera.detections_today ?? "0";
       }
+      if (liveBadge) {
+        const status = data.camera.status ?? "Unknown";
+        liveBadge.textContent = status;
+        liveBadge.classList.toggle("online-badge", status === "ONLINE");
+      }
     }
   } catch (error) {
     console.error("Could not refresh status:", error);
