@@ -8,6 +8,7 @@ import socket
 import threading
 import json
 from pathlib import Path
+from database import create_detection_event
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -148,6 +149,15 @@ def process_frame(frame):
                     broadcast(json.dumps(event))
                     detections_today += 1
                     # print("Sent event:", event)
+                    
+                    try:
+                        create_detection_event(
+                            name=name,
+                            action=event["action"],
+                            distance=event["distance"]
+                        )
+                    except Exception as e:
+                        print("[WARN] Could not save detection event:", e)
 
                     last_sent_name = name
                     last_sent_time = current_time
