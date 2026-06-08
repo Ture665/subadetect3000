@@ -1,0 +1,12 @@
+{
+    "host": "192.168.50.68",
+    "port": 5000,
+    "action": "Alt + Tab",
+    "selected_app_path": "C:/Users/ture.rosin/OneDrive - Academedia/Documents/Steam/steamapps/common/BloonsTD6/BloonsTD6.exe",
+    "window_geometry": {
+        "x": 273,
+        "y": 114,
+        "width": 711,
+        "height": 454
+    }
+}
